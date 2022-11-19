@@ -1,4 +1,21 @@
 jwt:
   header: Authorization
-  secret: MzI0d2VydGRmZ3M3ODJseG1kY2YvMz0tc2Q4aTRrbG1kZmcsLmR4Yzh1NDNubG1kZmc4OTIxYno7ZGZzZ2xramZzZGc4OTIzNDVrbGp3ZXJ5dWhzZGZrbGo
+  secret: cf17613e2e22e9abda17564e838a4f20615651d0f7e5001e4f5a486350179041fe2682994c0f821687eff93acc10d5741967a0115a4ac014a7c2b85223956c78
   token-validity-in-seconds: 86400
+
+spring:
+  http:
+    encoding:
+      force: true
+      charset: UTF-8
+  profiles:
+    active: dev
+  jpa:
+    database: mysql
+    hibernate:
+      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+  datasource:
+    url: jdbc:mysql://localhost:3306/seonbae?serverTimezone=Asia/Seoul&useSSL=false
+    username: root
+    password: sggs8822
+    driverClassName: com.mysql.cj.jdbc.Driver
