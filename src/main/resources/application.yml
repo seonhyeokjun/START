@@ -1,0 +1,4 @@
+jwt:
+  header: Authorization
+  secret: MzI0d2VydGRmZ3M3ODJseG1kY2YvMz0tc2Q4aTRrbG1kZmcsLmR4Yzh1NDNubG1kZmc4OTIxYno7ZGZzZ2xramZzZGc4OTIzNDVrbGp3ZXJ5dWhzZGZrbGo
+  token-validity-in-seconds: 86400
