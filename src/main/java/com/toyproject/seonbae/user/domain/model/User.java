@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 200)
     private String nickName;
 
-    @Comment("유효한 사용자인지 판단")
+    @Comment("사용자 활성화")
     private boolean activated;
 
     @ManyToMany
