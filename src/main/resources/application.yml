@@ -3,14 +3,23 @@ jwt:
   secret: cf17613e2e22e9abda17564e838a4f20615651d0f7e5001e4f5a486350179041fe2682994c0f821687eff93acc10d5741967a0115a4ac014a7c2b85223956c78
   token-validity-in-seconds: 86400
 
-spring:
-  http:
+server:
+  port: 80
+  servlet:
     encoding:
       force: true
       charset: UTF-8
+
+spring:
+  mvc:
+    hidden-method:
+      filter:
+        enabled: true
   profiles:
     active: dev
   jpa:
+    openInView: true
     database: mysql
-    hibernate:
-      dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect

@@ -1,9 +1,8 @@
 package com.toyproject.seonbae.util;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.util.WebUtils;
-
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 
 public class CookieUtil {
     public static String getValue(HttpServletRequest httpServletRequest, String name) {

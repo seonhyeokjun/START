@@ -1,10 +1,10 @@
 package com.toyproject.seonbae.user.domain.model;
 
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Comment;
 
-import javax.persistence.*;
 import java.util.Set;
 
 @Getter

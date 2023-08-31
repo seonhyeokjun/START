@@ -3,16 +3,16 @@ package com.toyproject.seonbae.user.domain.service;
 import com.toyproject.seonbae.jwt.JwtFilter;
 import com.toyproject.seonbae.jwt.TokenProvider;
 import com.toyproject.seonbae.user.domain.dto.LoginRequestDto;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletResponse;
 import java.time.Duration;
 
 @Service
@@ -24,6 +24,7 @@ public class UserService {
     /**
      * 로그인
      */
+    @Transactional
     public void login(LoginRequestDto loginRequestDto, HttpServletResponse response) {
         // jwt 생성
         UsernamePasswordAuthenticationToken authenticationToken =
@@ -45,5 +46,9 @@ public class UserService {
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
+    }
+    @Transactional
+    public void signup() {
+
     }
 }
