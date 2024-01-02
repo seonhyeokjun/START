@@ -1,5 +1,8 @@
 package com.toyproject.seonbae.jwt;
 
+import com.toyproject.seonbae.user.domain.model.Authority;
+import com.toyproject.seonbae.user.domain.model.Token;
+import com.toyproject.seonbae.user.domain.repository.TokenRepository;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
@@ -22,7 +25,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Component
 public class TokenProvider implements InitializingBean {
+    private TokenRepository tokenRepository;
     private static final String AUTHORITIES_KEY = "auth";
+    private static final String SEQ_NO_KEY = "id";
 
     private final String secret;
     private final long tokenValidityInMilliseconds;
@@ -30,9 +35,11 @@ public class TokenProvider implements InitializingBean {
 
     public TokenProvider(
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
+            TokenRepository tokenRepository) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+        this.tokenRepository = tokenRepository;
     }
 
     @Override
@@ -41,20 +48,44 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
+    public String createAccessToken(com.toyproject.seonbae.user.domain.model.User user) {
+        String authorities = user.getAuthorities().stream()
+                .map(Authority::getAuthorityName)
                 .collect(Collectors.joining(","));
 
         long now = (new Date()).getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        Date accessTokenValidTime = new Date(now + this.tokenValidityInMilliseconds);
 
         return Jwts.builder()
-                .setSubject(authentication.getName())
+                .setSubject(user.getUserName())
+                .setIssuedAt(new Date())
                 .claim(AUTHORITIES_KEY, authorities)
+                .claim(SEQ_NO_KEY, user.getUserId())
                 .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
+                .setExpiration(accessTokenValidTime)
                 .compact();
+    }
+
+    public String createRefreshToken(com.toyproject.seonbae.user.domain.model.User user) {
+        String authorities = user.getAuthorities().stream()
+                .map(Authority::getAuthorityName)
+                .collect(Collectors.joining(","));
+
+        long now = (new Date()).getTime();
+        Date refreshTokenValidTime = new Date(now + this.tokenValidityInMilliseconds * 7);
+
+        String refreshToken = Jwts.builder()
+                .setSubject(user.getUserName())
+                .setIssuedAt(new Date())
+                .claim(AUTHORITIES_KEY, authorities)
+                .claim(SEQ_NO_KEY, user.getUserId())
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(refreshTokenValidTime)
+                .compact();
+
+        tokenRepository.save(Token.builder().token(refreshToken).build());
+
+        return refreshToken;
     }
 
     public Authentication getAuthentication(String token) {

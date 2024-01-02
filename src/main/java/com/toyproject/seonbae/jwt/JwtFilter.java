@@ -17,6 +17,8 @@ import java.io.IOException;
 @Slf4j
 public class JwtFilter extends GenericFilterBean {
     public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String REFRESH_TOKEN_HEADER = "RefreshToken";
+
     private TokenProvider tokenProvider;
 
     public JwtFilter(TokenProvider tokenProvider) {
