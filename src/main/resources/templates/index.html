@@ -1,10 +1,189 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StartupLaunch - 당신의 스타트업 여정을 시작하세요</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background-color: #ffffff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #3498db;
+        }
+
+        .nav-links a {
+            margin-left: 1rem;
+            text-decoration: none;
+            color: #333;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #3498db, #8e44ad);
+            color: #fff;
+            padding: 100px 0 50px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 0.8rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: #c0392b;
+        }
+
+        .features {
+            padding: 50px 0;
+            background-color: #f9f9f9;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-item {
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .feature-item i {
+            font-size: 2rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background-color: #34495e;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
-테스트 입니다.
+<header>
+    <nav class="container">
+        <div class="logo">START</div>
+        <div class="nav-links">
+            <a href="#features">기능</a>
+            <a href="#about">소개</a>
+            <a href="#contact">문의</a>
+        </div>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1>당신의 스타트업 아이디어를 현실로</h1>
+        <p>Start와 함께 성공적인 비즈니스를 시작하세요</p>
+        <a href="#" class="cta-button">시작하기</a>
+    </div>
+</section>
+
+<section id="features" class="features">
+    <div class="container">
+        <h2>주요 기능</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <i class="fas fa-lightbulb"></i>
+                <h3>아이디어 검증</h3>
+                <p>당신의 아이디어를 시장에서 검증하세요</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-chart-line"></i>
+                <h3>비즈니스 계획</h3>
+                <p>효과적인 비즈니스 계획 수립을 도와드립니다</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-users"></i>
+                <h3>네트워킹</h3>
+                <p>투자자와 멘토를 만나보세요</p>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-money-bill-wave"></i>
+                <h3>자금 조달</h3>
+                <p>다양한 자금 조달 옵션을 탐색하세요</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2024 StartupLaunch. All rights reserved.</p>
+    </div>
+</footer>
 </body>
 </html>

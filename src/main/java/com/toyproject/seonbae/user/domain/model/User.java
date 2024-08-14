@@ -1,5 +1,6 @@
 package com.toyproject.seonbae.user.domain.model;
 
+import com.toyproject.seonbae.common.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User {
+public class User extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")

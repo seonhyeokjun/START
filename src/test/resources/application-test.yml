@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: h2:mem:testdb
+    username: sa
+    password:
+    driverClassName: org.h2.Driver

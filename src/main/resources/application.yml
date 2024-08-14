@@ -15,8 +15,6 @@ spring:
     hidden-method:
       filter:
         enabled: true
-  profiles:
-    active: dev
   jpa:
     openInView: true
     database: mysql

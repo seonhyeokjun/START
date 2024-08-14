@@ -8,7 +8,10 @@ plugins {
 
 group = 'com.toyProject'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    sourceCompatibility = '17'
+}
 
 configurations {
     compileOnly {
@@ -18,11 +21,10 @@ configurations {
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 ext {
-    set('springCloudVersion', "2022.0.1")
+    set('snippetsDir', file("build/generated-snippets"))
 }
 
 dependencies {
@@ -32,6 +34,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-hateoas'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
     // thymeleaf
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
@@ -68,13 +71,8 @@ dependencies {
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
 }
 
-dependencyManagement {
-    imports {
-        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-    }
-}
-
 tasks.named('test') {
+    outputs.dir snippetsDir
     useJUnitPlatform()
 }
 
@@ -84,10 +82,30 @@ sourceSets {
     main.java.srcDirs += [ querydslDir ]
 }
 
-tasks.withType(JavaCompile) {
-    options.annotationProcessorGeneratedSourcesDirectory = file(querydslDir)
+tasks.withType(JavaCompile).configureEach {
+    options.getGeneratedSourceOutputDirectory().set(file(querydslDir))
 }
 
 clean.doLast {
     file(querydslDir).deleteDir()
+}
+
+tasks.named('asciidoctor') {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+asciidoctor.doFirst {
+    delete file('src/main/resources/static/docs')
+}
+
+tasks.register("copyDocument", Copy) {
+    dependsOn asciidoctor
+    from file("build/docs/asciidoc")
+    into file("src/main/resources/static/docs")
+}
+
+bootJar {
+    dependsOn asciidoctor
+    dependsOn copyDocument
 }
